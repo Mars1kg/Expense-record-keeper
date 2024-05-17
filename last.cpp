@@ -1,7 +1,4 @@
 #include <iostream>
-#include <fstream>
-#include <sstream>
-#include <iomanip>
 #include <vector>
 
 using namespace std;
@@ -11,8 +8,7 @@ struct Transaction {
     double amount;
 };
 
-class TransactionManager {
-public:
+struct TransactionManager {
     vector<Transaction> transactions;
 
     void addTransaction(const Transaction& transaction) {
@@ -42,42 +38,8 @@ public:
     }
 };
 
-void saveTransactionsToFile(const TransactionManager& manager, const string& filename) {
-    ofstream file(filename);
-    if (file) {
-        for (const auto& transaction : manager.transactions) {
-            file << transaction.date << "," << transaction.amount << ","
-                 << transaction.category << "," << transaction.description << "\n";
-        }
-        cout << "Transactions saved to file.\n";
-    } else {
-        cout << "Failed to open file for writing.\n";
-    }
-}
-
-TransactionManager loadTransactionsFromFile(const string& filename) {
-    TransactionManager manager;
-    ifstream file(filename);
-    if (file) {
-        string line;
-        while (getline(file, line)) {
-            stringstream ss(line);
-            Transaction transaction;
-            char delimiter;
-            ss >> transaction.date >> delimiter >> transaction.amount >> delimiter
-               >> transaction.category;
-            getline(ss, transaction.description);
-            manager.addTransaction(transaction);
-        }
-        cout << "Transactions loaded from file.\n";
-    } else {
-        cout << "Failed to open file for reading.\n";
-    }
-    return manager;
-}
-
 int main() {
-    TransactionManager manager = loadTransactionsFromFile("transactions.dat");
+    TransactionManager manager;
 
     int choice;
     do {
@@ -86,7 +48,6 @@ int main() {
         cout << "2. Add Income\n";
         cout << "3. Delete Transaction\n";
         cout << "4. Generate Report\n";
-        cout << "5. Save and Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
 
@@ -117,10 +78,6 @@ int main() {
             }
             case 4:
                 manager.generateReport();
-                break;
-            case 5:
-                saveTransactionsToFile(manager, "transactions.dat");
-                cout << "Exiting.\n";
                 break;
             default:
                 cout << "Invalid choice.\n";
