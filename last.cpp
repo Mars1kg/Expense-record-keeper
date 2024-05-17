@@ -30,12 +30,12 @@ struct TransactionManager {
         for (size_t i = 0; i < transactions.size(); ++i) {
             const auto& transaction = transactions[i];
             cout << "Date: " << transaction.date << "\n";
-            cout << "Amount: $" << transaction.amount << "\n";
+            cout << "Amount: с" << transaction.amount << "\n";
             cout << "Category: " << transaction.category << "\n";
             cout << "Description: " << transaction.description << "\n\n";
             balance += transaction.amount;
         }
-        cout << "Balance: $" << balance << "\n";
+        cout << "Balance: с" << balance << "\n";
     }
 };
 
