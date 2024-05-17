@@ -27,7 +27,8 @@ struct TransactionManager {
     void generateReport() const {
         double balance = 0.0;
         cout << "Transaction Report:\n";
-        for (const auto& transaction : transactions) {
+        for (size_t i = 0; i < transactions.size(); ++i) {
+            const auto& transaction = transactions[i];
             cout << "Date: " << transaction.date << "\n";
             cout << "Amount: $" << transaction.amount << "\n";
             cout << "Category: " << transaction.category << "\n";
